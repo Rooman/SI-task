@@ -1,11 +1,20 @@
 # SI-task
 
-##Разрабатываем систему платежей. 
+## Разрабатываем систему платежей. 
 
 ### Общие сведения
 Система может принимать запросы или c помощью REST-endpoint или с помощью JMS-queue. 
 REST: Формат запроса JSON или XML. Формат ответа JSON или XML (смотрим в Accepted-type header)
 JMS: Формат запроса-ответа JSON. 
+
+Сущности на JMS брокере: 
+```
+payments.request.queue
+payments.response.queue
+payments.update.topic
+```
+
+Для определения типа запроса в JMS сообщении используем header REQUEST_TYPE: CREATE or GET
 
 #### Внешние системы
 * JMS Broker (ставим локально, например Apache MQ) - для request/response
@@ -49,7 +58,7 @@ boolean isActive;
 	"description": "Test payment",
 	"user": {
 		"id": 1
-	},
+		},
 	"amount": 270.25,
 	"currency": "UAH"
 }
@@ -59,8 +68,8 @@ boolean isActive;
 <request>
 	<description>Test payment</description>
 	<user>
-    <id>1</id>
-  </user>
+           <id>1</id>
+        </user>
 	<amount>270.25</amount>
 	<currency>UAH</currency>
 </request>
@@ -78,7 +87,7 @@ JSON:
 		"id": 1,
 		"firstName": "Alex", // получаем во время енричмента через heroku 
 		"lastName": "Nitavskiy" // получаем во время енричмента через heroku
-	},
+	       },
 	"status": "REQUESTED",
 	"date": "2018-03-03 18:00:03",
 	"amount": 270.25,
@@ -92,8 +101,8 @@ XML:
 <response>
 	<description>Test payment</description>
 	<user>
-    	<id>1</id>
-    </user>
+    	   <id>1</id>
+        </user>
 	<amount>270.25</amount>
 	<currency>UAH</currency>
 	<status>REQUESTED</status>
@@ -102,3 +111,4 @@ XML:
 	<amountInEUR>8.75</amountInEUR>
 </response>
 ```
+5. Отправляет сообщение в JMS topic
