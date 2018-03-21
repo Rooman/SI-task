@@ -76,7 +76,7 @@ boolean isActive;
 ```
 
 2. Сохраняет платеж во внутренней базе данных, генерирует ID для платежа.
-3. Производит enrichment информацией о валютах и юзере. 
+3. Производит enrichment информацией о валютах и юзере. (Optional and parallel enrichment, ждем 5 секунд)
 4. Отправляет ответ пользователю в нужно формате.
 JSON:
 ```
@@ -112,3 +112,4 @@ XML:
 </response>
 ```
 5. Отправляет сообщение в JMS topic
+![create payment image flow](create_payment.png)
